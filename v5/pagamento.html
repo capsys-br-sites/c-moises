@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pagamento Pix Seguro</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                azul: '#0F62AC',
+                escuro: '#1e293b',
+                verde: '#006633',
+                laranja: '#Ff7400',
+              },
+              fontFamily: {
+                sans: ['Outfit', 'sans-serif'],
+              },
+              animation: {
+                  'fade-in-up': 'fadeInUp 0.5s ease-out',
+              },
+              keyframes: {
+                  fadeInUp: {
+                      '0%': { opacity: '0', transform: 'translateY(10px)' },
+                      '100%': { opacity: '1', transform: 'translateY(0)' },
+                  }
+              }
+            }
+          }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        body { 
+            -webkit-tap-highlight-color: transparent; 
+            font-family: 'Outfit', sans-serif;
+            
+            /* FUNDO COM IMAGEM IGUAL AO LINKS.HTML */
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('/assets/hero_moises.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        /* EFEITO DE VIDRO */
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px) saturate(120%); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        .currency-input { caret-color: #0F62AC; }
+
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-gray-800 h-[100dvh] w-full flex items-center justify-center p-4 overflow-hidden">
+
+    <div class="w-full max-w-md mx-auto glass-card rounded-3xl shadow-2xl border border-white/50 relative animate-fade-in-up flex flex-col max-h-full">
+        
+        <div class="relative pt-6 pb-2 px-6 text-center flex-shrink-0 z-10">
+            
+            <a href="links.html" class="absolute top-4 left-4 bg-white/90 backdrop-blur w-9 h-9 rounded-full flex items-center justify-center text-gray-600 hover:text-azul hover:bg-white shadow-sm transition-all duration-300 transform hover:scale-105 border border-gray-100">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+
+            <div class="relative w-20 h-20 mx-auto mb-3 mt-2">
+                <div class="w-full h-full rounded-full p-1 bg-gradient-to-tr from-azul via-white to-laranja shadow-lg relative z-10">
+                    <img src="/assets/rosto_moises.png" alt="Perfil Moisés" class="w-full h-full rounded-full object-cover border-4 border-white">
+                </div>
+                <div class="absolute bottom-0 right-0 bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center border-4 border-white z-20 shadow-sm">
+                    <i class="fa-solid fa-check text-[8px]"></i>
+                </div>
+            </div>
+
+            <h2 class="text-lg font-bold text-gray-900 leading-tight">Moisés Silva</h2>
+            <div class="flex items-center justify-center gap-2 mt-1">
+                <i class="fa-solid fa-lock text-green-600 text-xs"></i>
+                <span class="font-bold text-gray-500 text-xs tracking-widest uppercase">Pagamento Seguro</span>
+            </div>
+        </div>
+
+        <div class="flex-1 px-8 py-4 overflow-y-auto scrollbar-hide flex flex-col">
+            
+            <div class="text-center mb-6">
+                <h1 class="text-xl font-bold text-gray-900">Qual valor deseja doar?</h1>
+                <p class="text-gray-400 text-xs mt-1">Todo valor faz a diferença.</p>
+            </div>
+
+            <div class="relative mb-6 text-center">
+                <span class="text-gray-400 text-xl font-bold align-top mt-2 inline-block">R$</span>
+                <input type="number" id="pixAmount" placeholder="0,00" step="0.01" class="currency-input w-40 text-center text-4xl font-extrabold text-gray-900 placeholder-gray-200 outline-none bg-transparent" oninput="resetQR()">
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 mb-8">
+                <button onclick="setAmount(10)" class="py-3 px-2 rounded-xl border border-gray-200 font-bold text-gray-600 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all text-sm bg-white/50">R$ 10</button>
+                <button onclick="setAmount(25)" class="py-3 px-2 rounded-xl border border-gray-200 font-bold text-gray-600 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all text-sm bg-white/50">R$ 25</button>
+                <button onclick="setAmount(50)" class="py-3 px-2 rounded-xl border border-gray-200 font-bold text-gray-600 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all text-sm bg-white/50">R$ 50</button>
+                <button onclick="setAmount(100)" class="py-3 px-2 rounded-xl border border-gray-200 font-bold text-gray-600 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all text-sm bg-white/50">R$ 100</button>
+                <button onclick="setAmount(150)" class="py-3 px-2 rounded-xl border border-gray-200 font-bold text-gray-600 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all text-sm bg-white/50">R$ 150</button>
+                <button onclick="setAmount(200)" class="py-3 px-2 rounded-xl border border-gray-200 font-bold text-gray-600 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all text-sm bg-white/50">R$ 200</button>
+            </div>
+
+            <button onclick="generatePix()" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 rounded-2xl shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2 mb-6">
+                Gerar Código Pix <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+            <div id="resultArea" class="hidden animate-fade-in-up pb-6">
+                <div class="bg-gray-50/80 p-6 rounded-3xl border border-dashed border-gray-300 relative">
+                    <div class="absolute -left-3 top-1/2 w-6 h-6 bg-white rounded-full"></div>
+                    <div class="absolute -right-3 top-1/2 w-6 h-6 bg-white rounded-full"></div>
+
+                    <p class="text-center text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Escaneie ou Copie</p>
+                    
+                    <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 inline-block mx-auto w-full flex justify-center mb-4">
+                        <div id="qrcode"></div>
+                    </div>
+
+                    <div class="relative">
+                        <input id="pixCopyPaste" readonly class="w-full bg-white text-gray-500 text-xs p-3 pr-10 rounded-lg border border-gray-200 font-mono truncate">
+                        <button onclick="copyPix()" class="absolute right-0 top-0 h-full px-3 text-blue-600 hover:text-blue-800">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+
+                    <button onclick="copyPix()" class="mt-4 w-full py-2 bg-blue-50 text-blue-700 font-bold rounded-lg text-sm hover:bg-blue-100 transition">
+                        Copiar Código Pix
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        
+        <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 transition-all duration-300 opacity-0 translate-y-10 pointer-events-none z-50">
+            <i class="fa-solid fa-circle-check text-green-400"></i>
+            <span class="font-bold text-sm">Código copiado com sucesso!</span>
+        </div>
+
+    </div>
+
+    <script>
+        // --- CONFIGURAÇÃO (PREENCHA AQUI) ---
+        const CHAVE_PIX = "00000000000"; // SUA CHAVE PIX
+        const NOME_BENEFICIARIO = "NOME DO MOISES"; 
+        const CIDADE_BENEFICIARIO = "CIDADE"; 
+        const ID_TRANSACAO = "RIFAMOISES"; 
+
+        // --- LÓGICA DO PIX (Não Alterar) ---
+        class PixPayload {
+            constructor(chave, nome, cidade, txId, valor) { this.chave = chave; this.nome = nome; this.cidade = cidade; this.txId = txId; this.valor = valor.toFixed(2); }
+            formatField(id, value) { const len = value.length.toString().padStart(2, '0'); return `${id}${len}${value}`; }
+            getCRC16(payload) {
+                payload += "6304"; let polinomio = 0x1021; let resultado = 0xFFFF;
+                if ((payload.length % 2) != 0) { return null; }
+                for (let offset = 0; offset < payload.length; offset++) {
+                    resultado ^= (payload.charCodeAt(offset) << 8);
+                    for (let bitwise = 0; bitwise < 8; bitwise++) { if ((resultado <<= 1) & 0x10000) resultado ^= polinomio; resultado &= 0xFFFF; }
+                }
+                return "6304" + resultado.toString(16).toUpperCase().padStart(4, '0');
+            }
+            generate() {
+                let payload = "000201" + this.formatField("26", "0014br.gov.bcb.pix" + this.formatField("01", this.chave)) + "52040000" + "5303986" + this.formatField("54", this.valor) + "5802BR" + this.formatField("59", this.nome) + this.formatField("60", this.cidade) + this.formatField("62", this.formatField("05", this.txId));
+                return payload + this.getCRC16(payload);
+            }
+        }
+
+        // --- FUNÇÕES DE INTERFACE ---
+        function setAmount(val) {
+            document.getElementById('pixAmount').value = val.toFixed(2);
+            resetQR();
+        }
+
+        function resetQR() {
+            document.getElementById('resultArea').classList.add('hidden');
+        }
+
+        function generatePix() {
+            const amountInput = document.getElementById('pixAmount').value;
+            const amount = parseFloat(amountInput.replace(',', '.'));
+
+            if (!amount || amount <= 0) {
+                alert("Por favor, digite um valor válido para doar.");
+                return;
+            }
+
+            const pix = new PixPayload(CHAVE_PIX, NOME_BENEFICIARIO, CIDADE_BENEFICIARIO, ID_TRANSACAO, amount);
+            const payload = pix.generate();
+            
+            const resultArea = document.getElementById('resultArea');
+            resultArea.classList.remove('hidden');
+            
+            setTimeout(() => {
+                resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = "";
+            new QRCode(qrContainer, { 
+                text: payload, 
+                width: 180, 
+                height: 180, 
+                colorDark : "#1f2937", 
+                colorLight : "#ffffff", 
+                correctLevel : QRCode.CorrectLevel.M 
+            });
+
+            document.getElementById('pixCopyPaste').value = payload;
+        }
+
+        function copyPix() {
+            const copyText = document.getElementById("pixCopyPaste");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            
+            navigator.clipboard.writeText(copyText.value).then(() => {
+                showToast();
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('opacity-0', 'translate-y-10');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-10');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

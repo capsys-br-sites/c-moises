@@ -1,0 +1,79 @@
+/* index.css - Estilos Premium da Home */
+
+/* Navbar Glassmorphism Profissional */
+.glass-nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    position: fixed; /* Fixo no topo agora */
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* Ajuste para o conteúdo não ficar escondido atrás do menu fixo */
+body { padding-top: 80px; }
+
+/* Hero Section com Gradiente Rico */
+.hero-bg {
+    background-color: #0F2027; /* Fallback */
+    background: linear-gradient(to right, #0F2027, #203A43, #2C5364); /* Gradiente profundo */
+}
+
+.hero-overlay {
+    background: linear-gradient(to top, rgba(15, 32, 39, 1) 0%, rgba(15, 32, 39, 0.6) 50%, rgba(15, 32, 39, 0.3) 100%);
+}
+
+/* Botão de Play Pulsante no Vídeo */
+.play-btn-wrapper {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    cursor: pointer;
+}
+.play-btn {
+    width: 70px; height: 70px;
+    background: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--cor-azul);
+    font-size: 24px;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    animation: pulse-white 2s infinite;
+}
+@keyframes pulse-white {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+/* Barra de Progresso Animada */
+.progress-container {
+    background: #e2e8f0;
+    border-radius: 99px;
+    height: 12px;
+    overflow: hidden;
+    position: relative;
+}
+.progress-bar {
+    background: linear-gradient(90deg, var(--cor-azul) 0%, #2563eb 100%);
+    height: 100%;
+    border-radius: 99px;
+    width: 0%; /* Começa em 0 para animar via JS */
+    transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card Flutuante de Estatísticas */
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0,0,0,0.03);
+    transition: transform 0.3s;
+}
+.stat-card:hover { transform: translateY(-5px); }

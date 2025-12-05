@@ -1,0 +1,77 @@
+/* historia.css */
+@import url('style.css');
+
+/* --- Configurações Base --- */
+html { scroll-behavior: smooth; }
+
+.bg-profissional {
+    background-color: #f8fafc;
+    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* --- Header Dinâmico --- */
+.header-transparent {
+    background: transparent;
+    border-bottom: 1px solid transparent;
+}
+.header-scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+/* --- Efeito Parallax no Hero --- */
+.hero-parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* --- Timeline (Linha do Tempo) --- */
+.timeline-line {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e2e8f0;
+}
+@media (min-width: 768px) {
+    .timeline-line { left: 50%; transform: translateX(-50%); }
+}
+
+/* --- Galeria & Lightbox --- */
+.gallery-item {
+    cursor: zoom-in;
+    overflow: hidden;
+    border-radius: 12px;
+}
+.gallery-item img {
+    transition: transform 0.5s ease;
+}
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Modal do Lightbox */
+#lightbox-modal {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+#lightbox-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* --- Botão Pulsante --- */
+.btn-pulse {
+    animation: pulse-orange 2s infinite;
+}
+@keyframes pulse-orange {
+    0% { box-shadow: 0 0 0 0 rgba(255, 116, 0, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 116, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 116, 0, 0); }
+}

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Todos Pelo Moisés | Campanha Oficial</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                azul: '#0F62AC',
+                escuro: '#1e293b',
+                verde: '#006633',
+                laranja: '#Ff7400',
+              },
+              fontFamily: {
+                sans: ['Outfit', 'sans-serif'],
+              }
+            }
+          }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 font-sans text-escuro min-h-screen flex flex-col">
+    
+    <header class="glass-nav">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+            
+            <a href="#" class="block hover:opacity-90 transition-opacity">
+                <img src="/assets/logo_moises.png" alt="Logo Todos Pelo Moisés" class="h-12 w-auto object-contain">
+            </a>
+            
+            <nav class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
+                <a href="#historia" class="hover:text-azul transition">História</a>
+                <a href="#video" class="hover:text-azul transition">Vídeo</a>
+                <a href="#galeria" class="hover:text-azul transition">Galeria</a>
+            </nav>
+
+            <a href="links.html" class="hidden md:flex items-center gap-2 bg-azul/10 text-azul px-5 py-2.5 rounded-full font-bold text-sm hover:bg-azul hover:text-white transition-all duration-300">
+                <i class="fa-solid fa-heart"></i> Doar Agora
+            </a>
+        </div>
+    </header>
+
+    <main class="w-full flex-grow relative pb-0">
+        
+        <section class="relative h-[500px] md:h-[600px] overflow-hidden group">
+            <div class="absolute inset-0 bg-gray-900">
+                <img src="/assets/hero_moises.png" 
+                     alt="Moisés Sorrindo" 
+                     class="w-full h-full object-cover opacity-60 scale-100 group-hover:scale-105 transition-transform duration-[10s] ease-out">
+            </div>
+            
+            <div class="absolute inset-0 hero-overlay flex items-center justify-center text-center px-6">
+                <div class="max-w-4xl w-full" data-aos="fade-up" data-aos-duration="1000">
+                    
+                    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-8">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                        CAMPANHA ATIVA & VERIFICADA
+                    </div>
+                    
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-8 drop-shadow-xl">
+                        A solidariedade <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-white">muda destinos.</span>
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
+                        Estamos numa jornada de amor e superação pelo Moisés. <br class="hidden md:block">
+                        Conheça a nossa história e faça parte desta corrente do bem.
+                    </p>
+                    
+                    <div class="flex flex-col md:flex-row gap-4 justify-center">
+                        <a href="#historia" class="btn-primary text-white font-bold py-4 px-10 rounded-full flex items-center justify-center gap-3">
+                            Conhecer a História <i class="fa-solid fa-arrow-down animate-bounce"></i>
+                        </a>
+                        <a href="links.html" class="bg-white/10 backdrop-blur-sm border border-white/30 hover:bg-white/20 text-white font-semibold py-4 px-10 rounded-full transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-heart"></i> Quero Ajudar
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="historia" class="py-16 md:py-24 max-w-6xl mx-auto px-6 pt-20">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                
+                <div data-aos="fade-right">
+                    <span class="text-laranja font-bold tracking-wider text-sm uppercase mb-2 block">Nossa Jornada</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                        Um sorriso que vale <br> <span class="text-azul">todo o nosso esforço.</span>
+                    </h2>
+                    <div class="prose text-gray-600 text-lg leading-relaxed text-justify space-y-4">
+                        <p>
+                            A vida do Moisés mudou de repente, mas a vontade de viver dele nunca diminuiu. Criámos esta página oficial para centralizar as informações e garantir que cada ajuda chegue diretamente ao tratamento dele.
+                        </p>
+                        <p>
+                            Acreditamos na força da comunidade e na bondade das pessoas. Abaixo, preparámos um vídeo especial onde explicamos detalhadamente a situação clínica e os próximos passos desta batalha.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-8 space-y-4 bg-blue-50/50 p-6 rounded-2xl border border-blue-100">
+                        <div class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-azul text-white flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-sm">Diagnóstico Confirmado</h4>
+                                <p class="text-xs text-gray-500 mt-1">Todo o tratamento é acompanhado por especialistas.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-azul text-white flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-sm">Transparência Total</h4>
+                                <p class="text-xs text-gray-500 mt-1">Canal oficial para atualizações sobre a saúde do Moisés.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="video" class="relative group" data-aos="fade-left">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-azul to-laranja rounded-3xl blur opacity-30 group-hover:opacity-50 transition duration-1000"></div>
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-black aspect-video border border-gray-100">
+                         <img src="/assets/hero_moises.png" 
+                              class="absolute inset-0 w-full h-full object-cover opacity-60">
+                         <div class="play-btn-wrapper">
+                             <a href="/assets/video_apresentacao.mp4" class="play-btn">
+                                 <i class="fa-solid fa-play ml-1"></i>
+                             </a>
+                         </div>
+                         <div class="absolute bottom-4 left-4 right-4">
+                            <p class="text-white font-bold text-sm bg-black/50 inline-block px-3 py-1 rounded-lg backdrop-blur-sm">
+                                <i class="fa-regular fa-circle-play mr-2"></i> Assistir Explicação Completa
+                            </p>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="galeria" class="py-16 bg-white border-t border-gray-100">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Galeria de Momentos</h2>
+                    <p class="text-gray-500 max-w-lg mx-auto">Alguns registos da nossa caminhada de fé e esperança.</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+                    <div class="col-span-2 row-span-2 rounded-2xl overflow-hidden relative group cursor-pointer" data-aos="fade-up">
+                        <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                            <p class="text-white font-medium">Momentos em Família</p>
+                        </div>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden relative group cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                        <img src="https://images.unsplash.com/photo-1504194107321-052180800000?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    </div>
+                     <div class="rounded-2xl overflow-hidden relative group cursor-pointer" data-aos="fade-up" data-aos-delay="150">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="col-span-2 rounded-2xl overflow-hidden relative group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full text-escuro">
+                            <i class="fa-solid fa-heart text-red-500 mr-1"></i> Gratidão
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <a href="links.html" class="fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-r from-laranja to-orange-500 text-white rounded-full shadow-2xl shadow-orange-500/40 flex items-center justify-center z-50 md:hidden animate-bounce transition-transform active:scale-90">
+            <i class="fa-solid fa-hand-holding-heart text-2xl"></i>
+        </a>
+
+        <footer class="bg-gray-900 text-gray-400 py-12 md:pb-12 mt-auto">
+            <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-center md:text-left">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Todos Pelo Moisés</h3>
+                    <p class="text-sm leading-relaxed">Campanha legítima e verificada para apoio ao tratamento médico. Agradecemos cada oração e contribuição.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Links Úteis</h3>
+                    <ul class="text-sm space-y-2">
+                        <li><a href="#historia" class="hover:text-white transition">A nossa História</a></li>
+                        <li><a href="pagamento.html" class="hover:text-white transition">Como Doar (Pix)</a></li>
+                        <li><a href="links.html" class="hover:text-white transition">Outras Formas de Ajuda</a></li>
+                    </ul>
+                </div>
+                <div class="flex flex-col items-center md:items-end justify-center">
+                    <p class="text-xs mb-4">Siga a nossa jornada</p>
+                    <div class="flex gap-4">
+                        <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-azul hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://facebook.com" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-azul hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://whatsapp.com" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-green-600 hover:text-white transition"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-xs opacity-50">
+                &copy; 2024 Todos Pelo Moisés. Todos os direitos reservados.
+            </div>
+        </footer>
+
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true, 
+            offset: 100, 
+            duration: 800, 
+        });
+    </script>
+</body>
+</html>
