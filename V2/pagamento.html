@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Pix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Importante: Biblioteca QRCode -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 min-h-screen md:flex md:items-center md:justify-center">
+
+    <div class="w-full max-w-md mx-auto bg-white min-h-screen md:min-h-0 md:rounded-3xl md:shadow-2xl md:border md:border-gray-100 overflow-hidden relative">
+        <!-- Header com voltar para LINKS.HTML -->
+        <div class="flex items-center p-4 border-b border-gray-100 bg-white sticky top-0 z-10">
+            <a href="links.html" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200 mr-4">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <h2 class="text-xl font-bold text-gray-800">Pagamento Seguro Pix</h2>
+        </div>
+
+        <div class="p-6 pt-8">
+            <div class="text-center mb-8">
+                <i class="fa-brands fa-pix text-4xl text-blue-600 mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-900">Qual valor deseja doar?</h3>
+            </div>
+
+            <!-- Botões de Valor -->
+            <div class="grid grid-cols-3 gap-3 mb-6">
+                <button onclick="setAmount(10.00)" class="py-3 bg-white border-2 border-blue-100 rounded-xl text-blue-700 font-bold">R$ 10</button>
+                <button onclick="setAmount(25.00)" class="py-3 bg-white border-2 border-blue-100 rounded-xl text-blue-700 font-bold">R$ 25</button>
+                <button onclick="setAmount(50.00)" class="py-3 bg-white border-2 border-blue-100 rounded-xl text-blue-700 font-bold">R$ 50</button>
+            </div>
+
+            <div class="mb-8 relative">
+                <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-bold text-xl">R$</span>
+                <input type="number" id="pixAmount" placeholder="0,00" step="0.01" class="w-full bg-gray-50 border-2 border-gray-200 rounded-2xl py-4 pl-14 pr-4 text-2xl font-bold" oninput="resetQR()">
+            </div>
+
+            <button onclick="generatePix()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl shadow-lg mb-8">
+                Gerar Código Pix
+            </button>
+
+            <!-- Resultado -->
+            <div id="resultArea" class="hidden bg-gray-50 rounded-3xl p-6 border border-gray-200 text-center">
+                <div class="flex justify-center mb-6 bg-white p-4 rounded-2xl shadow-sm inline-block mx-auto">
+                    <div id="qrcode"></div>
+                </div>
+                <textarea id="pixCopyPaste" readonly rows="3" class="w-full bg-white text-gray-600 text-xs p-3 rounded-xl border border-gray-200 font-mono"></textarea>
+                <button onclick="copyPix()" class="mt-2 text-blue-600 font-bold text-sm">Copiar Código</button>
+                <p id="copyFeedback" class="text-green-600 font-bold mt-2 opacity-0">Copiado!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURAÇÃO DO PIX
+        const CHAVE_PIX = "00000000000"; 
+        const NOME_BENEFICIARIO = "NOME DO MOISES"; 
+        const CIDADE_BENEFICIARIO = "CIDADE"; 
+        const ID_TRANSACAO = "RIFAMOISES"; 
+
+        // Funções Auxiliares (Mesmo código JS usado anteriormente)
+        function setAmount(val) { document.getElementById('pixAmount').value = val.toFixed(2); resetQR(); }
+        function resetQR() { document.getElementById('resultArea').classList.add('hidden'); }
+        
+        class PixPayload {
+            constructor(chave, nome, cidade, txId, valor) { this.chave = chave; this.nome = nome; this.cidade = cidade; this.txId = txId; this.valor = valor.toFixed(2); }
+            formatField(id, value) { const len = value.length.toString().padStart(2, '0'); return `${id}${len}${value}`; }
+            getCRC16(payload) {
+                payload += "6304"; let polinomio = 0x1021; let resultado = 0xFFFF;
+                if ((payload.length % 2) != 0) { return null; }
+                for (let offset = 0; offset < payload.length; offset++) {
+                    resultado ^= (payload.charCodeAt(offset) << 8);
+                    for (let bitwise = 0; bitwise < 8; bitwise++) { if ((resultado <<= 1) & 0x10000) resultado ^= polinomio; resultado &= 0xFFFF; }
+                }
+                return "6304" + resultado.toString(16).toUpperCase().padStart(4, '0');
+            }
+            generate() {
+                let payload = "000201" + this.formatField("26", "0014br.gov.bcb.pix" + this.formatField("01", this.chave)) + "52040000" + "5303986" + this.formatField("54", this.valor) + "5802BR" + this.formatField("59", this.nome) + this.formatField("60", this.cidade) + this.formatField("62", this.formatField("05", this.txId));
+                return payload + this.getCRC16(payload);
+            }
+        }
+
+        function generatePix() {
+            const amount = parseFloat(document.getElementById('pixAmount').value.replace(',', '.'));
+            if (!amount || amount <= 0) { alert("Valor inválido"); return; }
+            const pix = new PixPayload(CHAVE_PIX, NOME_BENEFICIARIO, CIDADE_BENEFICIARIO, ID_TRANSACAO, amount);
+            const payload = pix.generate();
+            
+            document.getElementById('resultArea').classList.remove('hidden');
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = "";
+            new QRCode(qrContainer, { text: payload, width: 200, height: 200, colorDark : "#1e3a8a", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
+            document.getElementById('pixCopyPaste').value = payload;
+        }
+
+        function copyPix() {
+            const copyText = document.getElementById("pixCopyPaste");
+            copyText.select(); copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value).then(() => {
+                const fb = document.getElementById('copyFeedback'); fb.style.opacity = '1'; setTimeout(() => fb.style.opacity = '0', 2000);
+            });
+        }
+    </script>
+</body>
+</html>

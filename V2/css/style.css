@@ -1,0 +1,31 @@
+/* style.css - Definição Global de Cores */
+:root {
+    --cor-azul: #0F62AC;
+    --cor-escuro: #333333;
+    --cor-verde: #006633;
+    --cor-laranja: #Ff7400;
+}
+
+body {
+    color: var(--cor-escuro);
+}
+
+/* Utilitários de Força (caso precise usar sem Tailwind) */
+.text-azul { color: var(--cor-azul) !important; }
+.bg-azul { background-color: var(--cor-azul) !important; }
+
+.text-laranja { color: var(--cor-laranja) !important; }
+.bg-laranja { background-color: var(--cor-laranja) !important; }
+
+.text-verde { color: var(--cor-verde) !important; }
+.bg-verde { background-color: var(--cor-verde) !important; }
+
+.text-escuro { color: var(--cor-escuro) !important; }
+.bg-escuro { background-color: var(--cor-escuro) !important; }
+
+/* Ajustes de foco para acessibilidade */
+input:focus, textarea:focus {
+    border-color: var(--cor-azul) !important;
+    outline-color: var(--cor-azul) !important;
+    box-shadow: 0 0 0 3px rgba(15, 98, 172, 0.2) !important;
+}

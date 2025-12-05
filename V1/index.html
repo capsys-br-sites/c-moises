@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajudando o Moisés - Rifa Beneficente</title>
+    <!-- Tailwind CSS (Estilização Moderna) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome (Ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- QRCode.js (Gerador de QR Code) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        /* Animações suaves */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Estilo para o input do valor */
+        .input-money:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Esconder abas inativas */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Botão de navegação ativo */
+        .nav-btn.active {
+            color: #2563eb;
+            border-bottom: 2px solid #2563eb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans pb-20">
+
+    <!-- Cabeçalho Fixo -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-md mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-600">
+                <i class="fa-solid fa-hands-holding-heart mr-2"></i>Todos pelo Moisés
+            </h1>
+            <button onclick="shareLink()" class="text-gray-500 hover:text-blue-600">
+                <i class="fa-solid fa-share-nodes text-xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="max-w-md mx-auto p-4">
+
+        <!-- Navegação (Abas) -->
+        <div class="flex border-b border-gray-200 mb-6">
+            <button onclick="switchTab('historia')" id="btn-historia" class="nav-btn active w-1/2 py-3 text-center font-medium text-gray-500 transition-colors">
+                História
+            </button>
+            <button onclick="switchTab('doar')" id="btn-doar" class="nav-btn w-1/2 py-3 text-center font-medium text-gray-500 transition-colors">
+                Participar & Pix
+            </button>
+        </div>
+
+        <!-- ABA 1: História e Apresentação -->
+        <div id="historia" class="tab-content active fade-in">
+            <!-- Foto Principal -->
+            <div class="rounded-2xl overflow-hidden shadow-lg mb-6 relative bg-gray-200 h-64">
+                <!-- Placeholder de imagem (substitua pelo src real) -->
+                <img src="https://images.unsplash.com/photo-1504194569485-618a8040d346?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="Foto do Moisés" 
+                     class="w-full h-full object-cover">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <p class="text-white font-bold text-lg">Precisamos da sua ajuda!</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow-sm mb-6">
+                <h2 class="text-xl font-bold mb-3 text-gray-800">A História do Moisés</h2>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Oi pessoal, estamos organizando essa rifa para ajudar o Moisés a custear seu tratamento médico. 
+                    Cada bilhete comprado faz uma diferença enorme na vida dele e de sua família.
+                </p>
+                <p class="text-gray-600 leading-relaxed">
+                    Contamos com a solidariedade de todos vocês para alcançarmos nossa meta!
+                </p>
+                
+                <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                    <h3 class="font-bold text-blue-800 text-sm mb-1">🎁 Prêmio da Rifa:</h3>
+                    <p class="text-blue-700 text-sm">Uma Cesta de Café da Manhã Premium + Vale Compras de R$ 200,00.</p>
+                </div>
+            </div>
+
+            <!-- Galeria Simples -->
+            <div class="grid grid-cols-2 gap-3 mb-20">
+                <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" class="rounded-lg shadow-sm h-32 w-full object-cover">
+                <img src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" class="rounded-lg shadow-sm h-32 w-full object-cover">
+            </div>
+
+            <!-- CTA Flutuante Mobile -->
+            <div class="fixed bottom-4 left-4 right-4 max-w-md mx-auto">
+                <button onclick="switchTab('doar')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-xl transition-transform transform active:scale-95 flex items-center justify-center text-lg">
+                    Quero Ajudar Agora <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ABA 2: Links e Gerador Pix -->
+        <div id="doar" class="tab-content fade-in pb-10">
+            
+            <!-- Link Tree -->
+            <div class="space-y-3 mb-8">
+                <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Links Importantes</h3>
+                
+                <a href="#" class="flex items-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:bg-gray-50 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-4">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                    </div>
+                    <span class="font-medium text-gray-700">Falar no WhatsApp</span>
+                    <i class="fa-solid fa-chevron-right ml-auto text-gray-300"></i>
+                </a>
+
+                <a href="#" class="flex items-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:bg-gray-50 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 mr-4">
+                        <i class="fa-brands fa-instagram text-xl"></i>
+                    </div>
+                    <span class="font-medium text-gray-700">Acompanhar no Instagram</span>
+                    <i class="fa-solid fa-chevron-right ml-auto text-gray-300"></i>
+                </a>
+            </div>
+
+            <!-- Gerador de Pix -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-blue-600 mb-3">
+                        <i class="fa-brands fa-pix text-3xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">Pagamento via Pix</h2>
+                    <p class="text-sm text-gray-500">Gere o código para comprar seus números</p>
+                </div>
+
+                <!-- Opções de Valor -->
+                <div class="grid grid-cols-3 gap-3 mb-4">
+                    <button onclick="setAmount(10.00)" class="py-2 px-3 border border-blue-200 rounded-lg text-blue-600 hover:bg-blue-50 font-semibold text-sm transition-colors">R$ 10,00</button>
+                    <button onclick="setAmount(20.00)" class="py-2 px-3 border border-blue-200 rounded-lg text-blue-600 hover:bg-blue-50 font-semibold text-sm transition-colors">R$ 20,00</button>
+                    <button onclick="setAmount(50.00)" class="py-2 px-3 border border-blue-200 rounded-lg text-blue-600 hover:bg-blue-50 font-semibold text-sm transition-colors">R$ 50,00</button>
+                </div>
+
+                <!-- Input Customizado -->
+                <div class="mb-6 relative">
+                    <span class="absolute left-4 top-3.5 text-gray-500 font-medium">R$</span>
+                    <input type="number" id="pixAmount" placeholder="0,00" step="0.01" 
+                           class="input-money w-full bg-gray-50 border border-gray-200 rounded-xl py-3 pl-12 pr-4 text-lg font-bold text-gray-800 placeholder-gray-400"
+                           oninput="resetQR()">
+                </div>
+
+                <!-- Botão Gerar -->
+                <button onclick="generatePix()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 rounded-xl shadow-md transition-colors flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-qrcode mr-2"></i> Gerar QR Code
+                </button>
+
+                <!-- Área do Resultado (Oculta inicialmente) -->
+                <div id="resultArea" class="hidden text-center border-t border-gray-100 pt-6">
+                    <div class="flex justify-center mb-4">
+                        <div id="qrcode" class="p-2 bg-white border border-gray-200 rounded-lg shadow-sm"></div>
+                    </div>
+                    
+                    <p class="text-xs text-gray-500 mb-2 uppercase tracking-wider font-semibold">Copia e Cola</p>
+                    
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="pixCopyPaste" readonly 
+                               class="w-full bg-gray-100 text-gray-600 text-xs p-3 rounded-lg border border-gray-200 font-mono truncate">
+                        <button onclick="copyPix()" class="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                    <p id="copyFeedback" class="text-green-600 text-xs font-bold mt-2 opacity-0 transition-opacity">Copiado com sucesso!</p>
+                </div>
+            </div>
+
+            <!-- Aviso -->
+            <p class="text-center text-xs text-gray-400 mt-6 px-4">
+                Ao fazer o Pix, envie o comprovante no WhatsApp para validar seus números.
+            </p>
+        </div>
+
+    </main>
+
+    <!-- Script Lógico -->
+    <script>
+        // --- CONFIGURAÇÃO ---
+        // ATENÇÃO: Substitua pela chave Pix real (CPF, Email, Telefone ou Aleatória)
+        const CHAVE_PIX = "00000000000"; // Ex: 12345678900
+        const NOME_BENEFICIARIO = "MOISES BENEFICIARIO"; // Nome sem acentos, max 25 chars
+        const CIDADE_BENEFICIARIO = "SAO PAULO"; // Cidade sem acentos, max 15 chars
+        const ID_TRANSACAO = "***RIFA***"; // Identificador opcional
+
+        // --- NAVEGAÇÃO ---
+        function switchTab(tabId) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+            // Add active class to selected
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function setAmount(val) {
+            document.getElementById('pixAmount').value = val.toFixed(2);
+            resetQR();
+        }
+
+        function resetQR() {
+            document.getElementById('resultArea').classList.add('hidden');
+        }
+
+        function shareLink() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Rifa do Moisés',
+                    text: 'Participe da rifa beneficente para ajudar o Moisés!',
+                    url: window.location.href,
+                });
+            } else {
+                alert('Copie o link do navegador para compartilhar!');
+            }
+        }
+
+        // --- LÓGICA DO PIX (Payload EMVCo) ---
+        class PixPayload {
+            constructor(chave, nome, cidade, txId, valor) {
+                this.chave = chave;
+                this.nome = nome;
+                this.cidade = cidade;
+                this.txId = txId;
+                this.valor = valor.toFixed(2);
+            }
+
+            // Função auxiliar para formatar campos (ID + Tamanho + Valor)
+            formatField(id, value) {
+                const len = value.length.toString().padStart(2, '0');
+                return `${id}${len}${value}`;
+            }
+
+            // Calcula CRC16 (CCITT-FALSE)
+            getCRC16(payload) {
+                payload += "6304"; // Adiciona o ID do CRC e o tamanho (04)
+                let polinomio = 0x1021;
+                let resultado = 0xFFFF;
+
+                if ((payload.length % 2) != 0) { return null; }
+
+                for (let offset = 0; offset < payload.length; offset++) {
+                    resultado ^= (payload.charCodeAt(offset) << 8);
+                    for (let bitwise = 0; bitwise < 8; bitwise++) {
+                        if ((resultado <<= 1) & 0x10000) resultado ^= polinomio;
+                        resultado &= 0xFFFF;
+                    }
+                }
+                return "6304" + resultado.toString(16).toUpperCase().padStart(4, '0');
+            }
+
+            generate() {
+                let payload = 
+                    "000201" + // Payload Format Indicator
+                    this.formatField("26", // Merchant Account Information
+                        "0014br.gov.bcb.pix" + 
+                        this.formatField("01", this.chave)
+                    ) +
+                    "52040000" + // Merchant Category Code
+                    "5303986" + // Transaction Currency (BRL)
+                    this.formatField("54", this.valor) + // Transaction Amount
+                    "5802BR" + // Country Code
+                    this.formatField("59", this.nome) + // Merchant Name
+                    this.formatField("60", this.cidade) + // Merchant City
+                    this.formatField("62", // Additional Data Field Template
+                        this.formatField("05", this.txId)
+                    );
+
+                return payload + this.getCRC16(payload);
+            }
+        }
+
+        // --- GERAÇÃO NA UI ---
+        function generatePix() {
+            const amountInput = document.getElementById('pixAmount').value;
+            const amount = parseFloat(amountInput.replace(',', '.'));
+
+            if (!amount || amount <= 0) {
+                alert("Por favor, digite um valor válido.");
+                return;
+            }
+
+            if (CHAVE_PIX === "00000000000") {
+                alert("ERRO: O desenvolvedor precisa configurar a Chave Pix no código.");
+                return;
+            }
+
+            // Gera o payload
+            const pix = new PixPayload(CHAVE_PIX, NOME_BENEFICIARIO, CIDADE_BENEFICIARIO, ID_TRANSACAO, amount);
+            const payload = pix.generate();
+
+            // Exibe a área
+            const resultArea = document.getElementById('resultArea');
+            resultArea.classList.remove('hidden');
+
+            // Gera QR Code Visual
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = ""; // Limpa anterior
+            new QRCode(qrContainer, {
+                text: payload,
+                width: 180,
+                height: 180,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.M
+            });
+
+            // Preenche input copia e cola
+            document.getElementById('pixCopyPaste').value = payload;
+
+            // Scroll suave até o resultado
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyPix() {
+            const copyText = document.getElementById("pixCopyPaste");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* Mobile devices */
+            
+            // Tenta usar a API moderna, fallback para execCommand
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(copyText.value).then(() => showFeedback());
+            } else {
+                document.execCommand("copy");
+                showFeedback();
+            }
+        }
+
+        function showFeedback() {
+            const feedback = document.getElementById('copyFeedback');
+            feedback.style.opacity = '1';
+            setTimeout(() => {
+                feedback.style.opacity = '0';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
