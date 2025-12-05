@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Links do Moisés | Ajude Agora</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                azul: '#0F62AC',
+                escuro: '#1e293b',
+                verde: '#006633',
+                laranja: '#Ff7400',
+              },
+              fontFamily: {
+                sans: ['Outfit', 'sans-serif'],
+              },
+              animation: {
+                  'fade-in-up': 'fadeInUp 0.5s ease-out',
+                  'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              },
+              keyframes: {
+                  fadeInUp: {
+                      '0%': { opacity: '0', transform: 'translateY(10px)' },
+                      '100%': { opacity: '1', transform: 'translateY(0)' },
+                  }
+              }
+            }
+          }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { 
+            -webkit-tap-highlight-color: transparent; 
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('assets/hero_moises.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px) saturate(120%); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-gray-800 h-[100dvh] w-full flex items-center justify-center p-4 overflow-hidden">
+            
+    <div class="w-full max-w-md mx-auto glass-card rounded-3xl shadow-2xl border border-white/50 relative animate-fade-in-up flex flex-col max-h-full">
+        
+        <div class="relative pt-8 pb-4 px-6 text-center flex-shrink-0">
+            
+            <a href="index.html" class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1.5 rounded-full flex items-center gap-2 text-xs font-bold text-gray-700 hover:text-azul hover:bg-white shadow-sm transition-all duration-300 transform hover:scale-105 z-20 border border-gray-100">
+                <i class="fa-solid fa-globe text-azul"></i>
+                Site Oficial
+            </a>
+
+            <div class="relative w-28 h-28 mx-auto mb-4 mt-4">
+                <div class="w-full h-full rounded-full p-1 bg-gradient-to-tr from-azul via-white to-laranja shadow-lg relative z-10">
+                    <img src="assets/rosto_moises.png" alt="Perfil Moisés" class="w-full h-full rounded-full object-cover border-4 border-white">
+                </div>
+                <div class="absolute bottom-1 right-1 bg-blue-500 text-white w-7 h-7 rounded-full flex items-center justify-center border-4 border-white z-20 shadow-sm">
+                    <i class="fa-solid fa-check text-[10px]"></i>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-900 leading-tight">Moisés Silva</h2>
+            <p class="text-sm text-gray-400 font-medium mb-4 mt-1">Campanha Oficial de Tratamento</p>
+            
+            <div class="flex justify-center gap-3 mb-2">
+                <a href="#" class="w-10 h-10 rounded-full bg-gray-50 hover:bg-pink-50 text-gray-600 hover:text-pink-600 flex items-center justify-center transition shadow-sm border border-gray-100">
+                    <i class="fa-brands fa-instagram text-xl"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-gray-50 hover:bg-green-50 text-gray-600 hover:text-green-600 flex items-center justify-center transition shadow-sm border border-gray-100">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-gray-50 hover:bg-blue-50 text-gray-600 hover:text-blue-600 flex items-center justify-center transition shadow-sm border border-gray-100">
+                    <i class="fa-brands fa-facebook-f text-xl"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="px-6 py-2 pb-6 space-y-3 overflow-y-auto flex-1 scrollbar-hide">
+            
+            <a href="pagamento.html" class="group relative block w-full">
+                <div class="relative flex items-center p-4 bg-white rounded-2xl border border-green-100 shadow-lg shadow-green-900/5 hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center text-2xl mr-4 flex-shrink-0">
+                        <i class="fa-brands fa-pix"></i>
+                    </div>
+                    <div class="flex-1 text-left">
+                        <span class="block font-bold text-gray-900 text-lg">Doação via Pix</span>
+                        <span class="text-gray-400 text-xs font-medium">Rápido, seguro e sem taxas</span>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-green-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://vakinha.com.br" target="_blank" class="group flex items-center p-4 bg-white hover:bg-orange-50 rounded-2xl border border-gray-100 shadow-sm hover:border-orange-200 hover:shadow-md transition-all duration-300">
+                <div class="w-10 h-10 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-xl mr-4 flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
+                <div class="flex-1 text-left">
+                    <span class="block font-bold text-gray-900 text-base">Vakinha Online</span>
+                    <span class="text-gray-400 text-xs">Plataforma de crowdfunding</span>
+                </div>
+                <i class="fa-solid fa-arrow-up-right-from-square text-gray-300 text-sm group-hover:text-orange-400"></i>
+            </a>
+
+            <a href="https://rifei.com.br" target="_blank" class="group flex items-center p-4 bg-white hover:bg-blue-50 rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all duration-300">
+                <div class="w-10 h-10 bg-blue-100 text-azul rounded-full flex items-center justify-center text-xl mr-4 flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-ticket"></i>
+                </div>
+                <div class="flex-1 text-left">
+                    <span class="block font-bold text-gray-900 text-base">Participar da Rifa</span>
+                    <span class="text-gray-400 text-xs">Concorra a prêmios ajudando</span>
+                </div>
+                <i class="fa-solid fa-arrow-up-right-from-square text-gray-300 text-sm group-hover:text-azul"></i>
+            </a>
+
+        </div>
+        
+    </div>
+
+</body>
+</html>

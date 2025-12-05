@@ -1,0 +1,58 @@
+/* index.css - Estilos Premium da Home */
+
+/* Remover padding-top padrão para permitir que o hero toque o topo da página */
+body { 
+    padding-top: 0 !important; 
+}
+
+/* Texto com sombra para melhor leitura sobre imagens */
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Botão de Play Pulsante no Vídeo */
+.play-btn-wrapper {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    cursor: pointer;
+}
+
+.play-btn {
+    width: 80px; height: 80px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--cor-azul, #0F62AC);
+    font-size: 24px;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    animation: pulse-white 2s infinite;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+}
+
+.play-btn:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+@keyframes pulse-white {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+/* Animação Tilt para o card de vídeo (opcional, dá um efeito moderno) */
+.animate-tilt {
+    animation: tilt 10s infinite linear;
+}
+@keyframes tilt {
+    0%, 50%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(0.5deg); }
+    75% { transform: rotate(-0.5deg); }
+}
+
+
+
+
