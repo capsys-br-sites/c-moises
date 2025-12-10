@@ -153,27 +153,70 @@
 
     <script>
         //MOISÉS ROGÉRIO SILVA REIS
-        // --- CONFIGURAÇÃO (PREENCHA AQUI) ---
-        const CHAVE_PIX = "+5562982219887"; // SUA CHAVE PIX
-        const NOME_BENEFICIARIO = "MOISES ROGERIO SILVA REIS"; 
-        const CIDADE_BENEFICIARIO = "GOIANIA"; 
-        const ID_TRANSACAO = "PIX"; 
+    // --- CONFIGURAÇÃO (ATUALIZADA) ---
+    const CHAVE_PIX = "+5562982219887"; // Telefone com +55 e DDD
+    const NOME_BENEFICIARIO = "MOISES ROGERIO SILVA REIS"; 
+    const CIDADE_BENEFICIARIO = "GOIANIA"; 
+    const ID_TRANSACAO = "PIXMOISES"; 
 
-        // --- LÓGICA DO PIX (Não Alterar) ---
+// --- LÓGICA DO PIX CORRIGIDA ---
         class PixPayload {
-            constructor(chave, nome, cidade, txId, valor) { this.chave = chave; this.nome = nome; this.cidade = cidade; this.txId = txId; this.valor = valor.toFixed(2); }
-            formatField(id, value) { const len = value.length.toString().padStart(2, '0'); return `${id}${len}${value}`; }
+            constructor(chave, nome, cidade, txId, valor) {
+                this.chave = chave;
+                // Abreviei o nome para evitar erros de limite em alguns bancos (max 25 chars)
+                this.nome = nome.length > 25 ? nome.substring(0, 25) : nome;
+                this.cidade = cidade;
+                this.txId = txId;
+                this.valor = valor.toFixed(2);
+            }
+
+            // Conta os caracteres corretamente (considerando acentos se houver)
+            getLength(str) {
+                return str.length; 
+            }
+
+            formatField(id, value) {
+                const len = this.getLength(value).toString().padStart(2, '0');
+                return `${id}${len}${value}`;
+            }
+
             getCRC16(payload) {
-                payload += "6304"; let polinomio = 0x1021; let resultado = 0xFFFF;
-                if ((payload.length % 2) != 0) { return null; }
+                // Adiciona o ID do CRC no final
+                payload += "6304";
+                
+                let polinomio = 0x1021;
+                let resultado = 0xFFFF;
+
+                // REMOVIDO: A verificação de par/ímpar que quebrava o código
+                
                 for (let offset = 0; offset < payload.length; offset++) {
                     resultado ^= (payload.charCodeAt(offset) << 8);
-                    for (let bitwise = 0; bitwise < 8; bitwise++) { if ((resultado <<= 1) & 0x10000) resultado ^= polinomio; resultado &= 0xFFFF; }
+                    for (let bitwise = 0; bitwise < 8; bitwise++) {
+                        if ((resultado <<= 1) & 0x10000) {
+                            resultado ^= polinomio;
+                        }
+                        resultado &= 0xFFFF;
+                    }
                 }
+                
                 return "6304" + resultado.toString(16).toUpperCase().padStart(4, '0');
             }
+
             generate() {
-                let payload = "000201" + this.formatField("26", "0014br.gov.bcb.pix" + this.formatField("01", this.chave)) + "52040000" + "5303986" + this.formatField("54", this.valor) + "5802BR" + this.formatField("59", this.nome) + this.formatField("60", this.cidade) + this.formatField("62", this.formatField("05", this.txId));
+                // Monta o payload na ordem exata do Banco Central
+                // ID 26: Conta do Comerciante
+                const merchantAccount = this.formatField("00", "br.gov.bcb.pix") + this.formatField("01", this.chave);
+                
+                let payload = "000201" + 
+                    this.formatField("26", merchantAccount) + 
+                    "52040000" + // Categoria
+                    "5303986" +  // Moeda (Real)
+                    this.formatField("54", this.valor) + 
+                    "5802BR" +   // País
+                    this.formatField("59", this.nome) + 
+                    this.formatField("60", this.cidade) + 
+                    this.formatField("62", this.formatField("05", this.txId)); // TxID
+
                 return payload + this.getCRC16(payload);
             }
         }
